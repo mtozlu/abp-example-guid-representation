@@ -29,6 +29,12 @@ namespace Acme.BookStore.MongoDB
         )]
     public class BookStoreMongoDbModule : AbpModule
     {
+		public override void OnApplicationInitialization(ApplicationInitializationContext context)
+		{
+            BsonDefaults.GuidRepresentationMode = GuidRepresentationMode.V3;
+            BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
+
+		}
 		public override void ConfigureServices(ServiceConfigurationContext context)
         {
             context.Services.AddMongoDbContext<BookStoreMongoDbContext>(options =>
