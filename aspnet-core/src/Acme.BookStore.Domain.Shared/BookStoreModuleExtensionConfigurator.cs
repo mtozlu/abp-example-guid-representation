@@ -37,6 +37,11 @@ namespace Acme.BookStore
 
         private static void ConfigureExtraProperties()
         {
+            ObjectExtensionManager.Instance.Modules().ConfigureIdentity(identity => {
+                identity.ConfigureUser(user => {
+                    user.AddOrUpdateProperty<System.Guid>("WarehouseId");
+                });
+            });
             /* You can configure extra properties for the
              * entities defined in the modules used by your application.
              *
